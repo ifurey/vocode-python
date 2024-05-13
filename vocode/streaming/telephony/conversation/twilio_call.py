@@ -135,6 +135,8 @@ class TwilioCall(Call[TwilioOutputDevice]):
                     f"Media WS: Received event '{data['event']}': {message}"
                 )
                 self.output_device.stream_sid = data["start"]["streamSid"]
+                if self.events_manager is not None:
+                    self.events_manager.callSid = data["start"]["callSid"]
                 break
 
     async def handle_ws_message(self, message) -> Optional[PhoneCallWebsocketAction]:
